@@ -1,0 +1,5 @@
+{
+    "data": ["dataset1", "dataset2"],
+    "models": ["cnn", "lstm"],
+    "attacks": ["fgsm", "bim"]
+}
