@@ -1,4 +1,4 @@
-# nVITA -- The time-series attack algorithm
+# nVITA -- The adversarial attack algorithm for time series forecasting
 
 This is the repository for nVITA algorithm.
 

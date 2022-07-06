@@ -10,8 +10,8 @@ from setuptools import setup, find_packages
 
 setup(
     name='nvita',
-    description='nVITA -- The time-series attack algorithm',
+    description='nVITA -- The adversarial attack algorithm for time series forecasting',
     packages=find_packages(),
-    version='0.0.1',
-    python_requires='>=3.8',
+    version='0.0.2',
+    python_requires='>=3.9',
 )
