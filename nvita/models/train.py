@@ -1,4 +1,7 @@
 
+import numpy as np
+
+
 def normalize_data(data, feature_range=(0, 1), test_percentage = 0.1, standard = True):
     readable_test_set_size = int(np.round(test_percentage * data.shape[0])) # no + 1 here unlike split_data
     readable_train_set_size = data.shape[0] - readable_test_set_size
@@ -83,9 +86,19 @@ def train(model, X):
 
 def evaluate(model, X, y):
     model.eval()
-    return 0.
+    return predict(model, X) - y
 
 def predict(model, X):
     model.eval()
     return model(X)
+
+def adv_predict(model, X, sample = 100):
+    model.eval()
+
+    result = np.ones(sample)
+    for s in range(sample):
+        result[s] = model(X).item()
+
+    return result
+
 
