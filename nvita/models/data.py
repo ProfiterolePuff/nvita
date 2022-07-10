@@ -7,8 +7,11 @@ import torch
 
 import os
 import pickle
+<<<<<<< HEAD
 
 from nvita.utils import check_file_existence
+=======
+>>>>>>> c8cf62a66ce8c8a88adaf1822052f4db49dbe8a8
 
 class SplittedTSData:
     """
@@ -121,6 +124,7 @@ class SplittedTSData:
         self.y_test = torch.from_numpy(self.y_test).type(torch.Tensor)
 
     def save_splitted_data(self, path_root):
+<<<<<<< HEAD
         path_save = os.path.join(path_root, "results", "splitted_data", "df_"+self.df_name+"_seed_"+str(self.seed)+".pkl")
         if not check_file_existence(path_save):
             with open(path_save, 'wb') as out:
@@ -134,6 +138,19 @@ class SplittedTSData:
         with open(path_load, 'rb') as inp:
             result = pickle.load(inp)
         return result
+=======
+        path_save = os.path.join(path_root, "results", "splitted_data", "df_"+self.df_name+"_seed_"+str(self.seed)+".pkl")   
+        with open(path_save, 'wb') as out:  # Overwrites any existing file.
+            pickle.dump(self, out, pickle.HIGHEST_PROTOCOL)
+
+    def load_splitted_data(self, path_root, df_name, seed):
+        """
+        Load SplittedData with given df name and seed
+        """
+        path_load = os.path.join(path_root, "results", "splitted_data", "df_"+str(df_name)+"_seed_"+str(seed)+".pkl")  
+        with open(path_load, 'rb') as inp:
+            self = pickle.load(inp)
+>>>>>>> c8cf62a66ce8c8a88adaf1822052f4db49dbe8a8
 
     def __str__(self) -> str:
         return self.df_name
