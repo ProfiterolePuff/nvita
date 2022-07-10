@@ -1,5 +1,8 @@
 {
-    "data": ["dataset1", "dataset2"],
-    "models": ["cnn", "lstm"],
-    "attacks": ["fgsm", "bim"]
+    "seeds": ["2210", "9999", "58361", "789789", "1111111"],
+    "data": ["Electricity", "NZTemp", "CNYExch", "Oil"],
+    "y_col_name" : ["Consumption", "Auckland", "Close", "Close"],
+    "window_size" : ["4", "3", "7", "7"],
+    "models": ["CNN", "LSTM", "GRU", "RF"],
+    "attacks": ["FGSM", "BIM", "nVITA", "fullVITA"]
 }
