@@ -108,3 +108,13 @@ class NVITA:
         X_adv = self.add_perturbation(nvita_eta, X, window_range)
 
         return abs(target[1] - adv_predict(self.model, X_adv).item())
+
+    def __str__(self) -> str:
+        
+        if self.targeted:
+        
+            return "Targeted " + str(self.n) + "VITA"
+
+        else:
+
+            return "Non-targeted" + str(self.n) + "VITA"
