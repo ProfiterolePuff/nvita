@@ -26,15 +26,11 @@ def train(model, lr, num_epochs, x_train, y_train, print_time = False):
     return losses 
 
 def evaluate(model, X, y):
-<<<<<<< HEAD
     """
     return error array
     """
     if str(model) != "RF":
         model.eval()
-=======
-    model.eval()
->>>>>>> c8cf62a66ce8c8a88adaf1822052f4db49dbe8a8
     return (predict(model, X) - y).detach().numpy()
 
 def predict(model, X):

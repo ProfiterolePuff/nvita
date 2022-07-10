@@ -59,7 +59,6 @@ def create_dir(path):
     if not os.path.exists(path):
         logger.info(f'Creating directory: {path}')
         os.makedirs(path)
-<<<<<<< HEAD
 
 def check_file_existence(path, raise_error = False):
     bool_result = exists(path)
@@ -69,6 +68,4 @@ def check_file_existence(path, raise_error = False):
         else:
             print("File " + str(path) + " has already existed!")
     return bool_result
-=======
-        
->>>>>>> c8cf62a66ce8c8a88adaf1822052f4db49dbe8a8
+
