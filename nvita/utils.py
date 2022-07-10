@@ -60,3 +60,4 @@ def create_dir(path):
     if not os.path.exists(path):
         logger.info(f'Creating directory: {path}')
         os.makedirs(path)
+        
