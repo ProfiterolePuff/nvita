@@ -1,18 +1,20 @@
 import pandas as pd
 import numpy as np
-from pathlib import Path
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
 import torch
 
 import os
+import pickle
+
+from nvita.utils import check_file_existence
 
 class SplittedTSData:
     """
     SplittedTSData Class
     """
-    def __init__(self, df_name, y_col_name, window_size):
+    def __init__(self, df_path = None, df_name = None, y_col_name = None, window_size = None, seed = None):
 
         self.X_train = None
         self.y_train = None
@@ -21,21 +23,16 @@ class SplittedTSData:
         self.X_test = None
         self.y_test = None
         self.seed = None
+        if seed != None:
+            self.seed = int(seed)
         self.df_name = str(df_name)
         self.y_col_name = str(y_col_name)
         self.y_ind = None
         self.window_size = window_size
         self.window_ranges = []
-        self.df_path = None
+        self.df_path = df_path
         self.single_X_shape = None
         self.single_y_shape = None
-
-    def get_df_path(self):
-        """
-        get the path of df by the self.df_name
-        """
-        path_root = Path(os.getcwd()).parent.absolute()
-        return os.path.join(path_root, "data", "clean_data", self.df_name+".csv")
 
     def normalize_data(self, feature_range=(0, 1), standard = True):
         """
@@ -81,14 +78,13 @@ class SplittedTSData:
 
         return single_shape
 
-    def train_valid_test_split(self, test_size, valid_per, seed):
+    def train_valid_test_split(self, test_size, valid_per):
         """
         Split the data into three sets
         Obtain the self.y_ind (the index of y) 
         """
-        self.df_path = self.get_df_path()
         df = pd.read_csv(self.df_path, sep=",")
-
+        
         self.y_ind = df.columns.get_loc(self.y_col_name)
 
         raw_X_data = df.to_numpy()
@@ -102,8 +98,8 @@ class SplittedTSData:
         X_data = np.array(X_data)
         y_data = np.array(y_data)
 
-        X_train_val, X_test, y_train_val, y_test = train_test_split(X_data, y_data, test_size=test_size, random_state=seed)
-        X_train, X_valid, y_train, y_valid = train_test_split(X_train_val, y_train_val, test_size=valid_per, random_state=seed)
+        X_train_val, X_test, y_train_val, y_test = train_test_split(X_data, y_data, test_size=test_size, random_state=self.seed)
+        X_train, X_valid, y_train, y_valid = train_test_split(X_train_val, y_train_val, test_size=valid_per, random_state=self.seed)
 
         self.X_train = X_train
         self.y_train = y_train 
@@ -123,6 +119,21 @@ class SplittedTSData:
         self.y_valid = torch.from_numpy(self.y_valid).type(torch.Tensor)
         self.X_test = torch.from_numpy(self.X_test).type(torch.Tensor)
         self.y_test = torch.from_numpy(self.y_test).type(torch.Tensor)
+
+    def save_splitted_data(self, path_root):
+        path_save = os.path.join(path_root, "results", "splitted_data", "df_"+self.df_name+"_seed_"+str(self.seed)+".pkl")
+        if not check_file_existence(path_save):
+            with open(path_save, 'wb') as out:
+                pickle.dump(self, out, pickle.HIGHEST_PROTOCOL)
+
+    def load_splitted_data(self, path_root, df_name, seed):
+        """
+        Load SplittedData with given df name and seed, return the SplittedData Object
+        """
+        path_load = os.path.join(path_root, "results", "splitted_data", "df_"+str(df_name)+"_seed_"+str(seed)+".pkl")  
+        with open(path_load, 'rb') as inp:
+            result = pickle.load(inp)
+        return result
 
     def __str__(self) -> str:
         return self.df_name

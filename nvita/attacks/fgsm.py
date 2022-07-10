@@ -52,3 +52,13 @@ class FGSMTSF:
             X_adv = X_adv + self.eps * sign_data_grad * window_range
 
         return X_adv
+
+    def __str__(self) -> str:
+        
+        if self.targeted:
+        
+            return "Targeted FGSM"
+
+        else:
+
+            return "Non-targeted FGSM"

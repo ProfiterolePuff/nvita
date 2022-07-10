@@ -2,6 +2,7 @@ import datetime
 import json
 import logging
 import os
+from os.path import exists
 import random
 import time
 
@@ -26,7 +27,6 @@ def set_seed(random_state=None):
 def time2str(time_elapsed, formatstr='%Hh%Mm%Ss'):
     """Format millisecond to string."""
     return time.strftime(formatstr, time.gmtime(time_elapsed))
-
 
 def to_json(data_dict, path):
     """Save dictionary as JSON."""
@@ -54,9 +54,17 @@ def open_json(path):
     except:
         logger.error(f'Cannot open {path}')
 
-
 def create_dir(path):
     """Create directory if the input path is not found."""
     if not os.path.exists(path):
         logger.info(f'Creating directory: {path}')
         os.makedirs(path)
+
+def check_file_existence(path, raise_error = False):
+    bool_result = exists(path)
+    if bool_result:
+        if raise_error:
+            raise Exception("File " + str(path) + " has already existed!")
+        else:
+            print("File " + str(path) + " has already existed!")
+    return bool_result

@@ -75,4 +75,12 @@ class FULLVITA:
         y_pred = adv_predict(self.model, X_adv)
         return -np.sum(((y_pred.detach().numpy().reshape(-1) - y.detach().numpy().reshape(-1))**2)/len(y))
 
+    def __str__(self) -> str:
+        
+        if self.targeted:
+        
+            return "Targeted fullVITA"
 
+        else:
+
+            return "Non-targeted fullVITA"

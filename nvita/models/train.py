@@ -1,8 +1,14 @@
 
 import numpy as np
+import torch
+
+import time
 
 
-def training_model(model, criterion, optimiser, num_epochs, x_train, y_train):
+def train(model, lr, num_epochs, x_train, y_train, print_time = False):
+    model.train()
+    criterion = torch.nn.MSELoss(reduction = "mean")
+    optimiser = torch.optim.Adam(model.parameters(), lr = lr)
     start_time = time.time()
     losses = np.zeros(num_epochs)
     for epoch in range(num_epochs):
@@ -13,30 +19,37 @@ def training_model(model, criterion, optimiser, num_epochs, x_train, y_train):
         loss.backward()
         optimiser.step()
     cost_time = time.time() - start_time
-    print("Training time of " + model.get_name() + " is: " + str(cost_time) + " Sec.")
+
+    if print_time:
+        print("Training time of " + str(model) + " is: " + str(cost_time) + " Sec.")
+        
     return losses 
 
-
-def train(model, X):
-    model.train()
-    # Here is the for loop.
-    pass
-
 def evaluate(model, X, y):
-    model.eval()
-    return predict(model, X) - y
+    """
+    return error array
+    """
+    if str(model) != "RF":
+        model.eval()
+    return (predict(model, X) - y).detach().numpy()
 
 def predict(model, X):
-    model.eval()
-    return model(X)
+    if str(model) == "RF":
+        result = model.rf_pytorch_predict(X)
+    else:
+        model.eval()
+        result = model(X)
+    return result
 
 def adv_predict(model, X, sample = 100):
-    model.eval()
+    if str(model) == "RF":
+        result = model.rf_pytorch_predict(X)
+    else:
+        model.eval()
+        result = np.ones(sample)
+        for s in range(sample):
+            result[s] = model(X).item()
 
-    result = np.ones(sample)
-    for s in range(sample):
-        result[s] = model(X).item()
-
-    return result
+    return np.mean(result), result
 
 

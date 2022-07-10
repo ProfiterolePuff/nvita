@@ -68,3 +68,13 @@ class BIMTSF:
             X_adv.requires_grad = True
 
         return X_adv
+
+    def __str__(self) -> str:
+        
+        if self.targeted:
+        
+            return "Targeted BIM"
+
+        else:
+
+            return "Non-targeted BIM"
