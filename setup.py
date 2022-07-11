@@ -9,9 +9,9 @@ To upgrade this package
 from setuptools import setup, find_packages
 
 setup(
-    name='nvita',
-    description='nVITA -- The adversarial attack algorithm for time series forecasting',
+    name="nvita",
+    description="nVITA -- The adversarial attack algorithm for time series forecasting",
     packages=find_packages(),
-    version='0.0.3',
-    python_requires='>=3.9',
+    version="0.0.5",
+    python_requires=">=3.9",
 )

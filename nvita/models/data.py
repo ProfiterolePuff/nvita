@@ -123,15 +123,15 @@ class SplittedTSData:
     def save_splitted_data(self, path_root):
         path_save = os.path.join(path_root, "results", "splitted_data", "df_"+self.df_name+"_seed_"+str(self.seed)+".pkl")
         if not check_file_existence(path_save):
-            with open(path_save, 'wb') as out:
+            with open(path_save, "wb") as out:
                 pickle.dump(self, out, pickle.HIGHEST_PROTOCOL)
 
     def load_splitted_data(self, path_root, df_name, seed):
         """
         Load SplittedData with given df name and seed, return the SplittedData Object
         """
-        path_load = os.path.join(path_root, "results", "splitted_data", "df_"+str(df_name)+"_seed_"+str(seed)+".pkl")  
-        with open(path_load, 'rb') as inp:
+        path_load = os.path.join(path_root, "results", "splitted_data", "df_"+str(df_name)+"_seed_"+str(seed)+".pkl") 
+        with open(path_load, "rb") as inp:
             result = pickle.load(inp)
         return result
 

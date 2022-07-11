@@ -1,25 +1,41 @@
-def get_dynamic_target_attack_goal(model_preds, target_value, target_ranges):
-    """ 
-    Obtain dynamic target attack goal list used for experiments
-    for both positive target and negative target 
+from nvita.utils import check_file_existence
 
-    Args:
-        model_preds: 
-            A list contains the original model prediction for all windows
-        target_value: 
-            A float specifies the attack target, should be range within [0,1]
-            since the training time series is normalized within [0,1]
-        target_ranges: 
-            A list contains the range of the target for all windows
-
-    Returns:
-        Two lists contain the positive and negative target attack goal
+def get_pop_size_for_nvita(X_shape, bound_len):
     """
-    positive_attack_goals, negative_attack_goals = [], []
+    Get popsize if popsize is not specified in nvita or fullvita
+    """
+    pop_size = 1
+    for shape in X_shape:
+        pop_size = pop_size * shape
+        # Population Size, calculated in respect of input size
+    pop_size_mul = max(1, pop_size//bound_len)
+    # Population multiplier, in terms of the size of the perturbation vector x
+    return pop_size_mul
 
-    for window_index in range(model_preds.shape[0]):
-        # For each window, generate the attack target based on: original model prediction +/- target value times target range
-        positive_attack_goals.append((window_index, model_preds[window_index].item() + target_value * target_ranges[window_index]))
-        negative_attack_goals.append((window_index, model_preds[window_index].item() - target_value * target_ranges[window_index]))
+def get_csv_line_from_list(line_list):
+    """
+    Create a comma seperated line without new line character with given list
+    """
+    line_str = ""
+    for value in line_list:
+        line_str += str(value)
+        line_str += ","
+    return line_str
 
-    return positive_attack_goals, negative_attack_goals
+def create_empty_result_csv_file(path_save, first_line_list):
+
+    if not check_file_existence(path_save):
+
+        line = get_csv_line_from_list(first_line_list)
+
+        with open(path_save, "a") as f:
+            f.write(line)
+            f.write("\n")
+    
+def append_result_to_csv_file(path_save, line_list):
+
+    line = get_csv_line_from_list(line_list)
+
+    with open(path_save, "a") as f:
+            f.write(line)
+            f.write("\n")

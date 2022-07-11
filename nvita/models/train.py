@@ -42,14 +42,22 @@ def predict(model, X):
     return result
 
 def adv_predict(model, X, sample = 100):
+    """
+    Assume X contains only one window
+    if the model is pytorch model, return the mean of 100 times prediction
+    if the model is sklearn random forest, return the mean of the forest
+    """
     if str(model) == "RF":
         result = model.rf_pytorch_predict(X)
+
+        return result.item()
+        
     else:
         model.eval()
         result = np.ones(sample)
         for s in range(sample):
             result[s] = model(X).item()
 
-    return np.mean(result), result
+        return np.mean(result)
 
 

@@ -43,7 +43,7 @@ class BIMTSF:
 
         for _ in range(self.steps):
 
-            y_pred = self.model.predict(X_adv)
+            y_pred = predict(self.model, X_adv)
             self.model.zero_grad()
 
             if self.targeted:
