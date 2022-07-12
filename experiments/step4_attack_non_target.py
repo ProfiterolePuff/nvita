@@ -19,7 +19,6 @@ from nvita.models.data import SplittedTSData
 from nvita.models.utils import load_model
 from nvita.utils import create_dir, open_json
 
-
 def run_exp(df_name, seed, model, attack, epsilon, n, demo):
     path_root = Path(os.getcwd()).parent.absolute()
     # get root path
@@ -38,9 +37,11 @@ def run_exp(df_name, seed, model, attack, epsilon, n, demo):
         path_out_dir = os.path.join(path_root, "results", "exp_seed_" + str(seed), "exp_" + df_name , "targeted_results")
     else:
         path_out_dir = os.path.join(path_root, "examples", "exp_seed_" + str(seed), "exp_" + df_name , "targeted_results")
+    # check demo size to run partial exp
     create_dir(path_out_dir)
     path_out_file = os.path.join(path_out_dir, "df_"+df_name+"_seed_"+str(seed)+"_model_"+str(m)+"_epsilon_"+str(epsilon)+"_attack_"+attack_name+".csv")
     path_out_file = check_result_file_path(path_out_file)
+    # check the reslt file path, it file exists obtain new file name 
     first_result_line_list = ["df", "Seed", "Model", "Epsilon", "Targeted", "Test Index", "Attack Name", "True y", "Original y Pred", "Attacked y Pred", "Attacked AE", "Original AE", "Max Per", "Sum Per", "Cost Time", "Window Range", "Adv Example" ]
     create_empty_result_csv_file(path_out_file, first_result_line_list)
     # Create empty csv file with the column names

@@ -19,7 +19,6 @@ from nvita.models.data import SplittedTSData
 from nvita.models.utils import load_model
 from nvita.utils import create_dir, open_json
 
-
 def run_exp(df_name, seed, model, attack, epsilon, n, target, demo):
     path_root = Path(os.getcwd()).parent.absolute()
     # get root path
@@ -39,9 +38,11 @@ def run_exp(df_name, seed, model, attack, epsilon, n, target, demo):
         path_out_dir = os.path.join(path_root, "results", "exp_seed_" + str(seed), "exp_" + df_name , "targeted_results")
     else:
         path_out_dir = os.path.join(path_root, "examples", "exp_seed_" + str(seed), "exp_" + df_name , "targeted_results")
+    # check demo size to run partial exp
     create_dir(path_out_dir)
     path_out_file = os.path.join(path_out_dir, "df_"+df_name+"_seed_"+str(seed)+"_model_"+str(m)+"_epsilon_"+str(epsilon)+"_attack_"+attack_name+"_target_"+target+".csv")
     path_out_file = check_result_file_path(path_out_file)
+    # check the reslt file path, it file exists obtain new file name 
     ci_levels = [50, 60, 70, 80, 90, 95, 99]
     # all CI levels to test
 
