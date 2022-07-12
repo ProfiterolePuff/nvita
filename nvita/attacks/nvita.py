@@ -49,7 +49,9 @@ class NVITA:
         else:
             
             X_adv_de = differential_evolution(negative_mse_with_true_y, bounds, args=(X, target, self.model, window_range), maxiter=maxiter, popsize=popsize, tol=tol, polish=False, seed=seed)
-        return X_adv_de
+
+        X_adv = add_perturbation(X_adv_de.x, X, window_range)
+        return X_adv, X_adv_de
 
     def __str__(self) -> str:
         

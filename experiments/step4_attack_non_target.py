@@ -7,6 +7,8 @@ import nvita.models.train as mt
 
 from nvita.utils import open_json
 
+from nvita.attacks.brs import BRS
+from nvita.attacks.brnv import BRNV
 from nvita.attacks.fgsm import FGSMTSF
 from nvita.attacks.bim import BIMTSF
 from nvita.attacks.nvita import NVITA, add_perturbation
@@ -23,7 +25,7 @@ def run_exp(df_name, seed, model, attack, epsilon, n):
     path_root = Path(os.getcwd()).parent.absolute()
     path_out_dir = os.path.join(path_root, "results", "non_targeted_results") 
     path_out_file = os.path.join(path_out_dir, "df_"+df_name+"_seed_"+str(seed)+"_model_"+model+"_epsilon_"+str(epsilon)+"_attack_"+str(attack)+".csv")
-    first_result_line_list = ["df", "Seed", "Model", "Epsilon", "Targeted", "Attack Name", "True y", "Original y Pred", "Attacked AE", "Original AE", "Max Per", "Sum Per", "Cost Time", "Window Range", "Adv Example" ]
+    first_result_line_list = ["df", "Seed", "Model", "Epsilon", "Targeted", "Test Index", "Attack Name", "True y", "Original y Pred", "Attacked AE", "Original AE", "Max Per", "Sum Per", "Cost Time", "Window Range", "Adv Example" ]
     create_empty_result_csv_file(path_out_file, first_result_line_list)
     # Create empty csv file with the column names
 
@@ -37,7 +39,7 @@ def run_exp(df_name, seed, model, attack, epsilon, n):
         raise Exception("RandomFOrest can not be attacked by " + attack + " !")
     ["NoAttack", "BRS", "BnRV", "FGSM", "BIM", "nVITA", "fullVITA"],
     
-    for test_ind in range(s_data.X_test.shape[0] - 95):
+    for test_ind in range(s_data.X_test.shape[0] - 0):
     #for test_ind in range(s_data.X_test.shape[0]):
         X_current = torch.reshape(s_data.X_test[test_ind], s_data.single_X_shape)
         ground_truth_y = torch.reshape(s_data.y_test[test_ind], s_data.single_y_shape)
@@ -48,9 +50,11 @@ def run_exp(df_name, seed, model, attack, epsilon, n):
             X_adv = X_current
             att = attack
         elif attack == "BRS":
-            pass
+            att = BRS(epsilon)
+            X_adv = att.attack(X_current, window_range, seed+test_ind*2)
         elif attack == "BRNV":
-            pass
+            att = BRNV(n, epsilon)
+            X_adv, _ = att.attack(X_current, n, window_range, seed+test_ind*2)
         elif attack == "FGSM": 
             att = FGSMTSF(epsilon, m, loss_type = "MSE")
             X_adv = att.attack(X_current, ground_truth_y, window_range)
@@ -61,12 +65,10 @@ def run_exp(df_name, seed, model, attack, epsilon, n):
             X_adv = att.attack(X_current, ground_truth_y, window_range)
         elif attack == "NVITA":
             att = NVITA(n, epsilon, m)
-            de = att.attack(X_current, ground_truth_y, window_range, seed=seed)
-            X_adv = add_perturbation(de.x, X_current, window_range)
+            X_adv, _ = att.attack(X_current, ground_truth_y, window_range, seed=seed)
         elif attack == "FULLVITA":
             att = FULLVITA(epsilon, m)
-            de = att.attack(X_current, ground_truth_y, window_range, seed=seed)
-            X_adv = X_current + torch.Tensor(de.x).reshape(X_current.shape) * window_range  
+            X_adv, _ = att.attack(X_current, ground_truth_y, window_range, seed=seed)
 
         cost_time = time.time() - current_time
         original_y_pred = mt.adv_predict(m, X_current)
@@ -77,7 +79,7 @@ def run_exp(df_name, seed, model, attack, epsilon, n):
         max_per = torch.max(torch.abs(eta)).item()
         
         
-        result = [df_name, seed, model, epsilon, "True", str(att), str(ground_truth_y.item()), original_y_pred, attacked_ae, original_ae, max_per, sum_per, cost_time, str(window_range.tolist()).replace(",", ";"), str(X_adv.tolist()).replace(",", ";")]
+        result = [df_name, seed, model, epsilon, "False", test_ind, str(att), str(ground_truth_y.item()), original_y_pred, attacked_ae, original_ae, max_per, sum_per, cost_time, str(window_range.tolist()).replace(",", ";"), str(X_adv.tolist()).replace(",", ";")]
         append_result_to_csv_file(path_out_file, result)
 
 
@@ -92,7 +94,6 @@ if __name__ == "__main__":
     parser.add_argument("-a", "--attack", type=str, required=True, help="The attack name, can be " + str(my_metadata["attacks"]) + " ;")
     parser.add_argument("-e", "--epsilon", type=float, required=True, help="The epsilon values, should be " + str(my_metadata["epsilons"]) + " ;")
     parser.add_argument("-n", "--n", type=int, required=True, help="The n value, used in n BnRV and nVITA;")
-    #parser.add_argument("-t", "--target", type=float, required=True, help="The hyper-parameter -- target;")
     args = parser.parse_args()
 
     if str(args.dfname) not in my_metadata["data"]:

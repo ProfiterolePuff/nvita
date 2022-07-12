@@ -48,7 +48,9 @@ class FULLVITA:
 
             X_adv_de = differential_evolution(negative_mse_with_nn_for_fullvita, bounds, args=(X, target, self.model, window_range), maxiter=maxiter, popsize=popsize, tol=tol, polish=False, seed=seed)
 
-        return X_adv_de
+        X_adv = X + torch.Tensor(X_adv_de.x).reshape(X.shape) * window_range  
+
+        return X_adv, X_adv_de
 
     def __str__(self) -> str:
         
