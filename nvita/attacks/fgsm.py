@@ -31,7 +31,7 @@ class FGSMTSF:
 
         if self.targeted:
 
-            target_value = torch.tensor(target[1]).reshape(y_pred.shape)
+            target_value = torch.tensor(target[1]).reshape(y_pred.shape).float()
             loss = self.criterion(y_pred, target_value)
             
         else:

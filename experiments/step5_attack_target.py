@@ -28,7 +28,7 @@ def run_exp(df_name, seed, model, attack, epsilon, n, target):
     ci_levels = [50, 60, 70, 80, 90, 95, 99]
     # all CI levels to test
 
-    first_result_line_list = ["df", "Seed", "Model", "Epsilon", "Targeted", "Target Direction", "Test Index", "Attack Name", "True y", "Original y Pred", "Attacked AE", "Original AE", "Max Per", "Sum Per", "Cost Time"] 
+    first_result_line_list = ["df", "Seed", "Model", "Epsilon", "Targeted", "Target Direction", "Test Index", "Attack Name", "True y", "Target Value", "Original y Pred", "Attacked AE", "Original AE", "Max Per", "Sum Per", "Cost Time"] 
 
     for ci_level in ci_levels:
         first_result_line_list.append("Value of " + target + str(ci_level))
@@ -54,6 +54,7 @@ def run_exp(df_name, seed, model, attack, epsilon, n, target):
     for test_ind in range(s_data.X_test.shape[0] - 90):
     #for test_ind in range(s_data.X_test.shape[0]):
         X_current = torch.reshape(s_data.X_test[test_ind], s_data.single_X_shape)
+        ground_truth_y = torch.reshape(s_data.y_test[test_ind], s_data.single_y_shape)
         window_range = s_data.window_ranges[test_ind]
         mean_pred, std_pred = mt.get_mean_and_std_pred(m, X_current)
         up, lo = mt.get_ci(mean_pred, std_pred, ci_levels[-1])
@@ -99,7 +100,7 @@ def run_exp(df_name, seed, model, attack, epsilon, n, target):
         sum_per = torch.sum(torch.abs(eta)).item()
         max_per = torch.max(torch.abs(eta)).item()
         
-        result = [df_name, seed, model, epsilon, "True", target, test_ind, str(att), str(attack_goal), original_y_pred, attacked_ae, original_ae, max_per, sum_per, cost_time]
+        result = [df_name, seed, model, epsilon, "True", target, test_ind, str(att), str(ground_truth_y.item()), str(attack_goal), original_y_pred, attacked_ae, original_ae, max_per, sum_per, cost_time]
 
         for ci_level in ci_levels:
             up, lo = mt.get_ci(mean_pred, std_pred, ci_level)

@@ -35,7 +35,7 @@ class BIMTSF:
 
         if self.targeted:
 
-            target_value = torch.tensor(target[1]).reshape(y_pred.shape)
+            target_value = torch.tensor(target[1]).reshape(y_pred.shape).float()
 
         else:
 
