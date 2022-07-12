@@ -30,7 +30,7 @@ def run_exp(df_name, seed, model, attack, epsilon, n, demo):
     attack_name = attack
     if attack == "BRNV":
         attack_name = "Non_Targeted_BR" + str(n) + "V"
-    elif attack == "BRNV":
+    elif attack == "NVITA":
         attack_name = "Non_Targeted_" + str(n) + "VITA"
     # Get correct attack name with n for nvita and brnv
     if demo == None:

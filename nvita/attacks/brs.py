@@ -19,7 +19,7 @@ class BRS:
         Rnadomly select -1 or 1 as the sign of the value
         """
         random.seed(seed)
-        X_adv = torch.tensor(np.array([[(-1)**random.randint(0,1) for i in range(X.shape[2])] for j in range(X.shape[1])])).reshape(X.shape)*self.eps*window_range
+        X_adv = X + torch.tensor(np.array([[(-1)**random.randint(0,1) for i in range(X.shape[2])] for j in range(X.shape[1])])).reshape(X.shape)*self.eps*window_range
         return X_adv
 
     def __str__(self) -> str:

@@ -32,7 +32,7 @@ def run_exp(df_name, seed, model, attack, epsilon, n, target, demo):
     attack_name = attack
     if attack == "BRNV":
         attack_name = "Targeted_BR" + str(n) + "V"
-    elif attack == "BRNV":
+    elif attack == "NVITA":
         attack_name = "Targeted_" + str(n) + "VITA"
     if demo == None:
         path_out_dir = os.path.join(path_root, "results", "targeted_results", "exp_seed_" + str(seed), "df_" + df_name)
@@ -46,7 +46,7 @@ def run_exp(df_name, seed, model, attack, epsilon, n, target, demo):
     ci_levels = [50, 60, 70, 80, 90, 95, 99]
     # all CI levels to test
 
-    first_result_line_list = ["df", "Seed", "Model", "Epsilon", "Targeted", "Target Direction", "Test Index", "Attack Name", "True y", "Original y Pred", "Target Value", "Original y Pred", "Attacked AE", "Original AE", "Max Per", "Sum Per", "Cost Time"] 
+    first_result_line_list = ["df", "Seed", "Model", "Epsilon", "Targeted", "Target Direction", "Test Index", "Attack Name", "True y", "Original y Pred", "Attacked y Pred", "Target Value", "Attacked AE", "Original AE", "Max Per", "Sum Per", "Cost Time"] 
 
     for ci_level in ci_levels:
         first_result_line_list.append("Value of " + target + str(ci_level))
@@ -113,7 +113,7 @@ def run_exp(df_name, seed, model, attack, epsilon, n, target, demo):
         sum_per = torch.sum(torch.abs(eta)).item()
         max_per = torch.max(torch.abs(eta)).item()
         
-        result = [df_name, seed, model, epsilon, "True", target, test_ind, str(att), str(ground_truth_y.item()), str(adv_y_pred), str(attack_goal), original_y_pred, attacked_ae, original_ae, max_per, sum_per, cost_time]
+        result = [df_name, seed, model, epsilon, "True", target, test_ind, str(att), str(ground_truth_y.item()), original_y_pred, str(adv_y_pred), str(attack_goal), attacked_ae, original_ae, max_per, sum_per, cost_time]
         if demo == None:
             path_out_dir = os.path.join(path_root, "results", "exp_"+str(seed), "targeted_results")
         else:
