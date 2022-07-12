@@ -35,9 +35,9 @@ def run_exp(df_name, seed, model, attack, epsilon, n, target, demo):
     elif attack == "BRNV":
         attack_name = "Targeted_" + str(n) + "VITA"
     if demo == None:
-        path_out_dir = os.path.join(path_root, "results", "exp_seed_" + str(seed), "exp_" + df_name , "targeted_results")
+        path_out_dir = os.path.join(path_root, "results", "targeted_results", "exp_seed_" + str(seed), "df_" + df_name)
     else:
-        path_out_dir = os.path.join(path_root, "examples", "exp_seed_" + str(seed), "exp_" + df_name , "targeted_results")
+        path_out_dir = os.path.join(path_root, "examples", "targeted_results", "exp_seed_" + str(seed), "df_" + df_name)
     # check demo size to run partial exp
     create_dir(path_out_dir)
     path_out_file = os.path.join(path_out_dir, "df_"+df_name+"_seed_"+str(seed)+"_model_"+str(m)+"_epsilon_"+str(epsilon)+"_attack_"+attack_name+"_target_"+target+".csv")
