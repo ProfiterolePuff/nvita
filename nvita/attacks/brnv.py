@@ -37,11 +37,11 @@ class BRNV:
         
         if self.targeted:
         
-            return "Targeted BR" + str(self.n) + "V"
+            return "Targeted_BR" + str(self.n) + "V"
 
         else:
 
-            return "Non-targeted BR" + str(self.n) + "V"
+            return "Non-targeted_BR" + str(self.n) + "V"
 
 def add_random_perturbation(eta, x, window_range):
     # Add perturbation based on BRNV result

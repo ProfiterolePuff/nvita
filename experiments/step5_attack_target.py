@@ -30,13 +30,17 @@ def run_exp(df_name, seed, model, attack, epsilon, n, target, demo):
     # load model
     tar_val = 0.1
     # set up target value offset
-
+    attack_name = attack
+    if attack == "BRNV":
+        attack_name = "Targeted_BR" + str(n) + "V"
+    elif attack == "BRNV":
+        attack_name = "Targeted_" + str(n) + "VITA"
     if demo == None:
         path_out_dir = os.path.join(path_root, "results", "exp_seed_" + str(seed), "exp_" + df_name , "targeted_results")
     else:
         path_out_dir = os.path.join(path_root, "examples", "exp_seed_" + str(seed), "exp_" + df_name , "targeted_results")
     create_dir(path_out_dir)
-    path_out_file = os.path.join(path_out_dir, "df_"+df_name+"_seed_"+str(seed)+"_model_"+str(m)+"_epsilon_"+str(epsilon)+"_attack_"+str(attack)+"_target_"+target+".csv")
+    path_out_file = os.path.join(path_out_dir, "df_"+df_name+"_seed_"+str(seed)+"_model_"+str(m)+"_epsilon_"+str(epsilon)+"_attack_"+attack_name+"_target_"+target+".csv")
     path_out_file = check_result_file_path(path_out_file)
     ci_levels = [50, 60, 70, 80, 90, 95, 99]
     # all CI levels to test
@@ -45,7 +49,7 @@ def run_exp(df_name, seed, model, attack, epsilon, n, target, demo):
 
     for ci_level in ci_levels:
         first_result_line_list.append("Value of " + target + str(ci_level))
-        first_result_line_list.append("Success in" + target + str(ci_level))
+        first_result_line_list.append("Success in " + target + str(ci_level))
 
     first_result_line_list += ["Window Range", "Adv Example" ]
     

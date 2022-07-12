@@ -26,8 +26,8 @@ class BRS:
         
         if self.targeted:
         
-            return "Targeted BRS"
+            return "Targeted_BRS"
 
         else:
 
-            return "Non-targeted BRS"
+            return "Non-targeted_BRS"

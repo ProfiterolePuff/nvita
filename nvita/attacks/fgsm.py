@@ -57,8 +57,8 @@ class FGSMTSF:
         
         if self.targeted:
         
-            return "Targeted FGSM"
+            return "Targeted_FGSM"
 
         else:
 
-            return "Non-targeted FGSM"
+            return "Non-targeted_FGSM"

@@ -73,8 +73,8 @@ class BIMTSF:
         
         if self.targeted:
         
-            return "Targeted BIM"
+            return "Targeted_BIM"
 
         else:
 
-            return "Non-targeted BIM"
+            return "Non-targeted_BIM"

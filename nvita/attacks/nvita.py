@@ -57,11 +57,11 @@ class NVITA:
         
         if self.targeted:
         
-            return "Targeted " + str(self.n) + "VITA"
+            return "Targeted_" + str(self.n) + "VITA"
 
         else:
 
-            return "Non-targeted" + str(self.n) + "VITA"
+            return "Non-targeted_" + str(self.n) + "VITA"
 
 def add_perturbation(nvita_eta, X, window_range):
     """

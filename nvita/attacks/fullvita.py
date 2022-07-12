@@ -56,11 +56,11 @@ class FULLVITA:
         
         if self.targeted:
         
-            return "Targeted fullVITA"
+            return "Targeted_fullVITA"
 
         else:
 
-            return "Non-targeted fullVITA"
+            return "Non-targeted_fullVITA"
 
 def absolute_error_with_target_for_fullvita(fullvita_eta, X, target, model, window_range):
     """

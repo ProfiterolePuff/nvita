@@ -28,14 +28,18 @@ def run_exp(df_name, seed, model, attack, epsilon, n, demo):
     # load data
     m = load_model(path_root, df_name, seed, model)
     # load model
-
+    attack_name = attack
+    if attack == "BRNV":
+        attack_name = "Non_Targeted_BR" + str(n) + "V"
+    elif attack == "BRNV":
+        attack_name = "Non_Targeted_" + str(n) + "VITA"
+    # Get correct attack name with n for nvita and brnv
     if demo == None:
         path_out_dir = os.path.join(path_root, "results", "exp_seed_" + str(seed), "exp_" + df_name , "targeted_results")
     else:
         path_out_dir = os.path.join(path_root, "examples", "exp_seed_" + str(seed), "exp_" + df_name , "targeted_results")
-    path_out_dir = os.path.join(path_root, "results", "exp_"+str(seed), "non_targeted_results") 
     create_dir(path_out_dir)
-    path_out_file = os.path.join(path_out_dir, "df_"+df_name+"_seed_"+str(seed)+"_model_"+str(m)+"_epsilon_"+str(epsilon)+"_attack_"+str(attack)+".csv")
+    path_out_file = os.path.join(path_out_dir, "df_"+df_name+"_seed_"+str(seed)+"_model_"+str(m)+"_epsilon_"+str(epsilon)+"_attack_"+attack_name+".csv")
     path_out_file = check_result_file_path(path_out_file)
     first_result_line_list = ["df", "Seed", "Model", "Epsilon", "Targeted", "Test Index", "Attack Name", "True y", "Original y Pred", "Attacked y Pred", "Attacked AE", "Original AE", "Max Per", "Sum Per", "Cost Time", "Window Range", "Adv Example" ]
     create_empty_result_csv_file(path_out_file, first_result_line_list)
