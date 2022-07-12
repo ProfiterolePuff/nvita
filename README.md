@@ -12,7 +12,17 @@ It also contains *FGSM* and *BIM* and two baseline attacks *BRS* and *BRNV* for 
 
 ## Running of the code
 
-**NOTE** That *FGSM* and *BIM* **CANNOT** attack *RF(random forest)* while *nVITA* and *fullVITA* can.
+**NOTE** **NOTE** **NOTE**
+
+**NOTE** that *FGSM* and *BIM* **CANNOT** attack *RF(random forest)* while *nVITA* and *fullVITA* can.
+
+For *NVITA*, *n* = ["1", "3", "5"]*, but for *BRNV*, *n* = 5 alone would be enough.
+
+*n* = 10 is not included in metadata.json, so it cannot be run currently. We will run it if we have spare time.
+
+**NOTE** that only the first four datasets have gone through step1 to step3. There will be more datasets after all our experiments have been completed on those four datasets.
+
+**NOTE** **NOTE** **NOTE**
 
 ### Step 1 - 3 data preprocessing, hyperparameter tuning, and model training
 
