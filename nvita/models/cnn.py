@@ -3,6 +3,9 @@ import torch.nn as nn
 from blitz.modules import BayesianConv1d
 
 class CNN(nn.Module):
+    """
+    Bayesian CNN from blitz
+    """
     def __init__(self, window_size, conv_out, f0, f1, f2, out):
         super(CNN,self).__init__()
         self.conv1d = BayesianConv1d(window_size, conv_out, kernel_size = 1)

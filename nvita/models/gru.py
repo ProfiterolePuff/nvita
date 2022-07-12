@@ -1,9 +1,10 @@
-import torch
 import torch.nn as nn
-
 from blitz.modules import BayesianGRU
 
 class GRU(nn.Module):
+    """
+    Bayesian GRU from blitz
+    """
     def __init__(self, input_dim, hidden_dim, num_layers, output_dim):
         super(GRU, self).__init__()
         self.hidden_dim = hidden_dim

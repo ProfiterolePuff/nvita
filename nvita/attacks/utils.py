@@ -1,3 +1,6 @@
+import os
+from pathlib import Path
+
 from nvita.utils import check_file_existence
 
 def get_pop_size_for_nvita(X_shape, bound_len):
@@ -39,3 +42,11 @@ def append_result_to_csv_file(path_save, line_list):
     with open(path_save, "a") as f:
             f.write(line)
             f.write("\n")
+
+def check_result_file_path(path_file):
+    """
+    while the path_file exists, add 1 before .csv in the path_file
+    """
+    while os.path.exists(path_file):
+        path_file = Path(str(path_file)[:-4]+"1.csv")
+    return path_file

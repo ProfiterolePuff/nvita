@@ -1,5 +1,5 @@
-import torch
 import numpy as np
+import torch
 
 from nvita.models.train import predict
 
@@ -37,11 +37,11 @@ class BRNV:
         
         if self.targeted:
         
-            return "Targeted B" + str(self.n) + "VITA"
+            return "Targeted BR" + str(self.n) + "V"
 
         else:
 
-            return "Non-targeted B" + str(self.n) + "VITA"
+            return "Non-targeted BR" + str(self.n) + "V"
 
 def add_random_perturbation(eta, x, window_range):
     # Add perturbation based on BRNV result

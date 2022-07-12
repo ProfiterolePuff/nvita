@@ -2,12 +2,12 @@ import numpy as np
 import torch
 from scipy.optimize import differential_evolution
 
-from nvita.models.train import predict
 from nvita.attacks.utils import get_pop_size_for_nvita
+from nvita.models.train import predict
 
 class FULLVITA:
     """
-    Time-series nVITA.
+    Time-series fullVITA.
     """
 
     def __init__(self, eps, model, targeted=False) -> None:
@@ -16,7 +16,7 @@ class FULLVITA:
         self.targeted = targeted
 
     def attack(self, X, target, window_range, maxiter=200, popsize=None, tol=0.01, seed=None):
-        """Targeted FULLVITA attack.
+        """fullVITA.
 
         Args:
             X: 
@@ -24,7 +24,7 @@ class FULLVITA:
             n: 
                 Number of values allowed to be attacked. An interger larger than 1.
             target: 
-                Target tuple 
+                Target tuple for targeted attack, true y for non-targeted attack
             model: 
                 A pytorch TSF model which will be attacked
             window_range: 

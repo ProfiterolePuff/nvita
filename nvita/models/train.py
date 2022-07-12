@@ -1,11 +1,13 @@
-
-import numpy as np
-import torch
-import scipy.stats as st
-
 import time
 
+import numpy as np
+import scipy.stats as st
+import torch
+
 def train(model, lr, num_epochs, x_train, y_train, print_time = False):
+    """
+    train pytorch ANN models
+    """
     model.train()
     criterion = torch.nn.MSELoss(reduction = "mean")
     optimiser = torch.optim.Adam(model.parameters(), lr = lr)

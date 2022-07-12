@@ -1,6 +1,6 @@
-from sklearn.ensemble import RandomForestRegressor
 import numpy as np
 import torch
+from sklearn.ensemble import RandomForestRegressor
 
 class RF():
     """

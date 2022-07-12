@@ -1,14 +1,13 @@
-import pandas as pd
-import numpy as np
-from sklearn.preprocessing import StandardScaler
-from sklearn.preprocessing import MinMaxScaler
-from sklearn.model_selection import train_test_split
-import torch
-
 import os
 import pickle
 
+import numpy as np
+import pandas as pd
+import torch
 from nvita.utils import check_file_existence
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
+
 
 class SplittedTSData:
     """

@@ -1,9 +1,9 @@
-import torch
+import random
+
 import numpy as np
+import torch
 
 from nvita.models.train import predict
-
-import random
 
 class BRS:
     """

@@ -2,6 +2,9 @@ import torch
 import torch.nn as nn
 
 class RNN(nn.Module):
+    """
+    RNN from pytorch
+    """
     def __init__(self, input_dim, hidden_dim, num_layers, output_dim):
         super(RNN, self).__init__()
         self.hidden_dim = hidden_dim
