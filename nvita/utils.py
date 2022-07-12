@@ -61,6 +61,9 @@ def create_dir(path):
         os.makedirs(path)
 
 def check_file_existence(path, raise_error = False):
+    """
+    Check file existence with given path
+    """
     bool_result = exists(path)
     if bool_result:
         if raise_error:
