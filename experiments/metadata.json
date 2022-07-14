@@ -5,7 +5,7 @@
     "window_size" : ["4", "3", "7", "7"],
     "models": ["CNN", "LSTM", "GRU", "RF"],
     "attacks": ["NOATTACK", "BRS", "BRNV", "FGSM", "BIM", "NVITA", "FULLVITA"],
-    "n_values": ["1", "3", "5"],
-    "epsilons": ["0.05", "0.1", "0.15", "0.20"],
+    "n_values": [1, 3, 5],
+    "epsilons": [0.05, 0.1, 0.15, 0.20],
     "targets" : ["Positive", "Negative"]
 }
