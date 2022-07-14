@@ -1,6 +1,7 @@
 #!/bin/bash
 #SBATSH --job-name=nvita_CNYExch_untargeted
-#SBATCH --output=log/nvita_CNYExch_untargeted_%a.out
+#SBATCH --output=log/log_%x_%j.out
+#SBATCH --error=log/log_%x_%j.err
 #SBATCH --time=30:00:00
 #SBATCH --mem=16G
 #SBATCH --cpus-per-task=8
