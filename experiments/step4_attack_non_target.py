@@ -19,13 +19,14 @@ from nvita.models.data import SplittedTSData
 from nvita.models.utils import load_model
 from nvita.utils import create_dir, open_json
 
+PATH_ROOT = Path(os.getcwd()).absolute()
+
 def run_exp(df_name, seed, model, attack, epsilon, n, demo):
-    path_root = Path(os.getcwd()).parent.absolute()
     # get root path
     s_data = SplittedTSData()
-    s_data = s_data.load_splitted_data(path_root, df_name, seed)
+    s_data = s_data.load_splitted_data(PATH_ROOT, df_name, seed)
     # load data
-    m = load_model(path_root, df_name, seed, model)
+    m = load_model(PATH_ROOT, df_name, seed, model)
     # load model
     attack_name = attack
     if attack == "BRNV":
@@ -34,9 +35,9 @@ def run_exp(df_name, seed, model, attack, epsilon, n, demo):
         attack_name = "Non_Targeted_" + str(n) + "VITA"
     # Get correct attack name with n for nvita and brnv
     if demo == None:
-        path_out_dir = os.path.join(path_root, "results", "non_targeted_results", "exp_seed_" + str(seed), "df_" + df_name)
+        path_out_dir = os.path.join(PATH_ROOT, "results", "non_targeted_results", "exp_seed_" + str(seed), "df_" + df_name)
     else:
-        path_out_dir = os.path.join(path_root, "examples", "non_targeted_results", "exp_seed_" + str(seed), "df_" + df_name)
+        path_out_dir = os.path.join(PATH_ROOT, "examples", "non_targeted_results", "exp_seed_" + str(seed), "df_" + df_name)
     # check demo size to run partial exp
     create_dir(path_out_dir)
     path_out_file = os.path.join(path_out_dir, "df_"+df_name+"_seed_"+str(seed)+"_model_"+str(m)+"_epsilon_"+str(epsilon)+"_attack_"+attack_name+".csv")
@@ -96,12 +97,14 @@ def run_exp(df_name, seed, model, attack, epsilon, n, demo):
         
         result = [df_name, seed, model, epsilon, "False", test_ind, str(att), str(ground_truth_y.item()), str(adv_y_pred), original_y_pred, attacked_ae, original_ae, max_per, sum_per, cost_time, str(window_range.tolist()).replace(",", ";"), str(X_adv.tolist()).replace(",", ";")]
         append_result_to_csv_file(path_out_file, result)
+        print('Save to:', path_out_file)
 
 
 if __name__ == "__main__":
-    path_root = Path(os.getcwd()).parent.absolute()
+    print('ROOT:', PATH_ROOT)
+
     my_metadata = open_json(os.path.join(
-        path_root, "experiments", "metadata.json"))
+        PATH_ROOT, "experiments", "metadata.json"))
     parser = argparse.ArgumentParser()
     parser.add_argument("-d", "--dfname", type=str, required=True, help="The name of the dataset, can be "+ str(my_metadata["data"]) + " ;")
     parser.add_argument("-s", "--seed", type=int, required=True, help="The RNG seed, can be " + str(my_metadata["seeds"]) + " ;")
@@ -112,6 +115,8 @@ if __name__ == "__main__":
     parser.add_argument("--demo", type=int, required=False, help="The demo test interger , should be range from (1, 100) ;")
     args = parser.parse_args()
 
+    print(f'Running Dataset:{args.dfname} Model:{args.model} Attack:{args.attack}...')
+    
     if str(args.dfname) not in my_metadata["data"]:
         raise Exception("Inputted data name " + str(args.dfname) + " is not in " + str(my_metadata["data"]))
     if str(args.seed) not in my_metadata["seeds"]:
@@ -120,7 +125,7 @@ if __name__ == "__main__":
         raise Exception("Inputted model name " + str(args.model) + " is not in " + str(my_metadata["models"]))
     if str(args.attack) not in my_metadata["attacks"]:
         raise Exception("Inputted attack name " + str(args.attack) + " is not in " + str(my_metadata["attacks"]))
-    if str(args.epsilon) not in my_metadata["epsilons"]:
+    if args.epsilon not in my_metadata["epsilons"]:
         raise Exception("Inputted epsilon " + str(args.epsilon) + " is not in " + str(my_metadata["epsilons"]))
 
     run_exp(args.dfname, args.seed, args.model, args.attack, args.epsilon, args.n, args.demo)
