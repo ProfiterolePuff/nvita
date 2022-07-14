@@ -12,6 +12,9 @@
 # Date:   14/07/2022
 ################################################################################
 
+module load Python/3.9.9-gimkl-2020a
+source /nesi/project/uoa03620/nvita/venv/bin/activate
+
 DATA="NZTemp"
 SEEDS=("2210" "9999" "58361" "789789" "1111111")
 MODELS=("CNN" "LSTM" "GRU" "RF")
