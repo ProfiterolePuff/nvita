@@ -1,6 +1,7 @@
-
 #!/bin/bash
 #SBATSH --job-name=nvita_Oil_untargeted
+#SBATCH --output=log/log_%x_%j.out
+#SBATCH --error=log/log_%x_%j.err
 #SBATCH --time=30:00:00
 #SBATCH --mem=16G
 #SBATCH --cpus-per-task=8
@@ -13,7 +14,10 @@
 # Date:   14/07/2022
 ################################################################################
 
-DATASET="Oil"
+module load Python/3.9.9-gimkl-2020a
+source /nesi/project/uoa03620/nvita/venv/bin/activate
+
+DATA="Oil"
 SEEDS=("2210" "9999" "58361" "789789" "1111111")
 MODELS=("CNN" "LSTM" "GRU" "RF")
 ATTACKS=("NOATTACK" "BRS" "FGSM" "BIM" "FULLVITA")

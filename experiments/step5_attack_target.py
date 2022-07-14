@@ -158,7 +158,7 @@ if __name__ == "__main__":
     parser.add_argument("--demo", type=int, required=False, help="The demo test interger , should be range from (1, 100) ;")
     args = parser.parse_args()
 
-    print(f'Running Dataset:{args.dfname} Model:{args.model} Attack:{args.attack} Target:{args.target}...')
+    print('Args:', args)
 
     if str(args.dfname) not in my_metadata["data"]:
         raise Exception("Inputted data name " + str(args.dfname) + " is not in " + str(my_metadata["data"]))

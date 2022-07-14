@@ -1,6 +1,8 @@
 #!/bin/bash -e
 
-#SBATSH --job-name=nvita_test_01
+#SBATSH --job-name=nvita_test
+#SBATCH --output=log/log_%x_%j.out
+#SBATCH --error=log/log_%x_%j.err
 #SBATCH --time=01:00:00
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=4G
