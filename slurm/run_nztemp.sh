@@ -1,5 +1,6 @@
 #!/bin/bash
 #SBATSH --job-name=nvita_NZTemp_untargeted
+#SBATCH --output=log/nvita_NZTemp_untargeted_%a.out
 #SBATCH --time=30:00:00
 #SBATCH --mem=16G
 #SBATCH --cpus-per-task=8

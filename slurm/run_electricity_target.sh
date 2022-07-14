@@ -1,5 +1,6 @@
 #!/bin/bash
 #SBATSH --job-name=nvita_Electricity_targeted
+#SBATCH --output=log/nvita_Electricity_targeted_%a.out
 #SBATCH --time=30:00:00
 #SBATCH --mem=16G
 #SBATCH --cpus-per-task=8

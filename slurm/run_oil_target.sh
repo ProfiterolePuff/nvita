@@ -1,5 +1,6 @@
 #!/bin/bash
 #SBATSH --job-name=nvita_Oil_targeted
+#SBATCH --output=log/nvita_Oil_targeted_%a.out
 #SBATCH --time=30:00:00
 #SBATCH --mem=16G
 #SBATCH --cpus-per-task=8
