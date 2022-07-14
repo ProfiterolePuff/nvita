@@ -22,22 +22,24 @@ ATTACKS=("NOATTACK" "BRS" "FGSM" "BIM" "FULLVITA")
 PARAM_N=(1 3 5) # Only used in NVITA
 EPSILONS=(0.05 0.1 0.15 0.2)
 TARGETS=("Positive" "Negative")
+SEED=${SEEDS[$SLURM_ARRAY_TASK_ID]}
+echo "Seed value = $SEED"
 
 # For targeted attacks
 for EPS in ${EPSILONS[@]}; do
     for MODEL in ${MODELS[@]}; do
         for TARGET in ${TARGETS[@]}; do
             for ATTACK in ${ATTACKS[@]}; do
-                python experiments/step5_attack_target.py -d $DATA  -m $MODEL -a $ATTACK -t $TARGET -s ${SEEDS[$SLURM_ARRAY_TASK_ID]} -e $EPS -n 1
+                python experiments/step5_attack_target.py -d $DATA  -m $MODEL -a $ATTACK -t $TARGET -s $SEED -e $EPS -n 1
             done
 
             # Only for NVITA
             for N in ${PARAM_N[@]}; do
-                python experiments/step5_attack_target.py -d $DATA  -m $MODEL -a NVITA -t $TARGET -s ${SEEDS[$SLURM_ARRAY_TASK_ID]} -e $EPS -n $N
+                python experiments/step5_attack_target.py -d $DATA  -m $MODEL -a NVITA -t $TARGET -s $SEED -e $EPS -n $N
             done
 
             # n=5 for BRNV
-            python experiments/step5_attack_target.py -d $DATA  -m $MODEL -a BRNV -t $TARGET -s ${SEEDS[$SLURM_ARRAY_TASK_ID]} -e $EPS -n 5
+            python experiments/step5_attack_target.py -d $DATA  -m $MODEL -a BRNV -t $TARGET -s $SEED -e $EPS -n 5
         done
     done
 done
