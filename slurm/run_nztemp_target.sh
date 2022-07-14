@@ -1,4 +1,3 @@
-
 #!/bin/bash
 #SBATSH --job-name=nvita_NZTemp_targeted
 #SBATCH --time=30:00:00
