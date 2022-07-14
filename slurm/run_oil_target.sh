@@ -1,4 +1,3 @@
-
 #!/bin/bash
 #SBATSH --job-name=nvita_Oil_targeted
 #SBATCH --time=30:00:00
