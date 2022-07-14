@@ -12,7 +12,7 @@
 # Date:   14/07/2022
 ################################################################################
 
-DATASET="CNYExch"
+DATA="CNYExch"
 SEEDS=("2210" "9999" "58361" "789789" "1111111")
 MODELS=("CNN" "LSTM" "GRU" "RF")
 ATTACKS=("NOATTACK" "BRS" "FGSM" "BIM" "FULLVITA")
