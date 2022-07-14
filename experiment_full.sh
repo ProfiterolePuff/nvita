@@ -13,7 +13,7 @@
 SEEDS=("2210" "9999" "58361" "789789" "1111111")
 DATASETS=("Electricity" "NZTemp" "CNYExch" "Oil")
 MODELS=("CNN" "LSTM" "GRU" "RF")
-ATTACKS_UNTARGETED=("NOATTACK" "BRS" "FGSM" "BIM" "FULLVITA")
+ATTACKS=("NOATTACK" "BRS" "FGSM" "BIM" "FULLVITA")
 PARAM_N=(1 3 5) # Only used in NVITA
 EPSILONS=(0.05 0.1 0.15 0.20)
 TARGETS=("Positive" "Negative")
@@ -24,7 +24,7 @@ for SEED in ${SEEDS[@]}; do
     for EPS in ${EPSILONS[@]}; do
         for DATA in ${DATASETS[@]}; do
             for MODEL in ${MODELS[@]}; do
-                for ATTACK in ${ATTACKS_UNTARGETED[@]}; do
+                for ATTACK in ${ATTACKS[@]}; do
                     python experiments/step4_attack_non_target.py -d $DATA  -m $MODEL -a $ATTACK -s $SEED -e $EPS -n 1
                 done
 
@@ -42,14 +42,12 @@ done
 
 
 # For targeted attacks
-ATTACKS_TARGETED=("NOATTACK" "FULLVITA")
-
 for SEED in ${SEEDS[@]}; do
     for EPS in ${EPSILONS[@]}; do
         for DATA in ${DATASETS[@]}; do
             for MODEL in ${MODELS[@]}; do
                 for TARGET in ${TARGETS[@]}; do
-                    for ATTACK in ${ATTACKS_TARGETED[@]}; do
+                    for ATTACK in ${ATTACKS[@]}; do
                         python experiments/step5_attack_target.py -d $DATA  -m $MODEL -a $ATTACK -t $TARGET -s $SEED -e $EPS -n 1
                     done
 
