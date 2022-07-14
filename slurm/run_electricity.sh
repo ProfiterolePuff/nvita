@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATSH --job-name=nvita_Electricity_untargeted
-#SBATCH --output=log/log_%x_%j.out
-#SBATCH --error=log/log_%x_%j.err
+#SBATCH --output=log/log_%x_%j_%a.out
+#SBATCH --error=log/log_%x_%j_%a.err
 #SBATCH --time=30:00:00
 #SBATCH --mem=16G
 #SBATCH --cpus-per-task=8
