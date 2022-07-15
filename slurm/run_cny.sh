@@ -2,7 +2,7 @@
 #SBATSH --job-name=nvita_CNYExch_untargeted
 #SBATCH --output=log/log_%x_%j_%a.out
 #SBATCH --error=log/log_%x_%j_%a.err
-#SBATCH --time=30:00:00
+#SBATCH --time=72:00:00
 #SBATCH --mem=16G
 #SBATCH --cpus-per-task=8
 #SBATCH --array=0-4

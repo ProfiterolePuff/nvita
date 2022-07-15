@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATSH --job-name=nvita_NZTemp_untargeted
+#SBATSH --job-name=nvita_CNYExch_untargeted
 #SBATCH --output=log/log_%x_%j_%a.out
 #SBATCH --error=log/log_%x_%j_%a.err
 #SBATCH --time=72:00:00
@@ -8,7 +8,7 @@
 #SBATCH --array=0-4
 
 ################################################################################
-# Untargeted attacks on NZTemp
+# Untargeted attacks on CNYExch
 #
 # Author: Luke Chang (xcha011@aucklanduni.ac.nz)
 # Date:   14/07/2022
@@ -17,12 +17,12 @@
 module load Python/3.9.9-gimkl-2020a
 source /nesi/project/uoa03620/nvita/venv/bin/activate
 
-DATA="NZTemp"
+DATA="CNYExch"
 SEEDS=("2210" "9999" "58361" "789789" "1111111")
 MODELS=("CNN" "LSTM" "GRU" "RF")
 ATTACKS=("NOATTACK" "BRS" "FGSM" "BIM" "FULLVITA")
 PARAM_N=(1 3 5) # Only used in NVITA
-EPSILONS=(0.05 0.1 0.15 0.2)
+EPSILONS=(0.15 0.2)
 SEED=${SEEDS[$SLURM_ARRAY_TASK_ID]}
 echo "Seed value = $SEED"
 
