@@ -164,3 +164,13 @@ cython_debug/
 # Do NOT commit demo results
 examples/non_targeted_results/
 examples/targeted_results/
+
+# Do NOT commit results
+results/non_targeted_results/
+results/targeted_results/
+
+# Do not commit temp files
+.~*
+
+# Ignore any compressed files
+*.tar.gz
