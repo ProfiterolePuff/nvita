@@ -171,3 +171,6 @@ results/targeted_results/
 
 # Do not commit temp files
 .~*
+
+# Ignore any compressed files
+*.tar.gz
