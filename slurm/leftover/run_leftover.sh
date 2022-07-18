@@ -7,7 +7,8 @@
 # Date:   18/07/2022
 ###
 
-for I in {1..80}
-sbatch ./slurm/leftover/run_$I.sh
+for I in {1..80}; do
+    sbatch ./slurm/leftover/run_$I.sh
+done
 
 squeue --me
