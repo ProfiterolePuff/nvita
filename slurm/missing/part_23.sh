@@ -9,9 +9,9 @@
 module load Python/3.9.9-gimkl-2020a
 source /nesi/project/uoa03620/nvita/venv/bin/activate
 
-python experiments/step5_attack_target.py -d NZTemp -m LSTM -a BIM -s 2210 -e 0.2 -n 1 -t Negative
-python experiments/step5_attack_target.py -d NZTemp -m LSTM -a BRNV -s 2210 -e 0.2 -n 5 -t Negative
-python experiments/step5_attack_target.py -d NZTemp -m LSTM -a BRS -s 2210 -e 0.2 -n 1 -t Negative
-python experiments/step5_attack_target.py -d NZTemp -m LSTM -a FGSM -s 2210 -e 0.2 -n 1 -t Negative
-python experiments/step5_attack_target.py -d NZTemp -m LSTM -a FULLVITA -s 2210 -e 0.2 -n 1 -t Negative
+python experiments/step4_attack_non_target.py -d Oil -m GRU -a NVITA -s 58361 -e 0.2 -n 5
+python experiments/step4_attack_non_target.py -d Oil -m LSTM -a BIM -s 58361 -e 0.2 -n 1
+python experiments/step4_attack_non_target.py -d Oil -m LSTM -a BRNV -s 58361 -e 0.2 -n 5
+python experiments/step4_attack_non_target.py -d Oil -m LSTM -a BRS -s 58361 -e 0.2 -n 1
+python experiments/step4_attack_non_target.py -d Oil -m LSTM -a FGSM -s 58361 -e 0.2 -n 1
 
