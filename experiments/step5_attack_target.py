@@ -77,7 +77,7 @@ def run_exp(df_name, seed, model, attack, epsilon, n, target, demo):
         if target == "Positive":
             attack_goal = up + tar_val
         elif target == "Negative":
-            attack_goal = lo + tar_val
+            attack_goal = lo - tar_val
         else:
             raise Exception("target: " + target + "is invalid!")
         attack_goal_tup = (test_ind, attack_goal)
