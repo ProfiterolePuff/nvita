@@ -16,7 +16,7 @@ from nvita.utils import create_dir
 
 PATH_ROOT = Path(os.getcwd()).absolute()
 PATH_RESULTS = os.path.join(PATH_ROOT, 'results')
-PATH_OUTPUT = os.path.join(PATH_ROOT, 'new_slurm')
+PATH_OUTPUT = os.path.join(PATH_ROOT, 'slurm', 'negtar')
 
 SLURM_HEADER = """#!/bin/bash
 #SBATSH --job-name=nvita_neg_tar
@@ -73,15 +73,15 @@ def save_script(line, output, idx):
         file.writelines(my_script)
 
 
-def get_content(n):
+def get_content(n, dir):
     content = '''#!/bin/bash
 
 for I in {{1..{}}}; do
-    sbatch ./slurm/missing/part_$I.sh
+    sbatch ./{}/run_$I.sh
 done
         
 squeue --me
-'''.format(n)
+'''.format(n, dir)
     return content
 
 
@@ -104,5 +104,5 @@ if __name__ == '__main__':
     # Create the script to submit all files
     file_count = file_count - 1
     with open(os.path.join(PATH_OUTPUT, 'run_missing.sh'), 'w') as file:
-        file.writelines(get_content(file_count))
+        file.writelines(get_content(file_count, 'slurm/negtar'))
     print(f'Created {file_count} slurm scripts in total')
