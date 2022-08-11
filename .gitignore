@@ -174,3 +174,6 @@ results/targeted_results/
 
 # Ignore any compressed files
 *.tar.gz
+
+# Ignore logs
+log/
