@@ -9,9 +9,9 @@
 module load Python/3.9.9-gimkl-2020a
 source /nesi/project/uoa03620/nvita/venv/bin/activate
 
-python experiments/step5_attack_target.py -d Electricity -m GRU -a NVITA -s 9999 -e 0.2 -n 3 -t Negative
-python experiments/step5_attack_target.py -d Electricity -m GRU -a NVITA -s 9999 -e 0.2 -n 5 -t Negative
-python experiments/step5_attack_target.py -d Electricity -m RF -a BRNV -s 9999 -e 0.2 -n 5 -t Negative
-python experiments/step5_attack_target.py -d Electricity -m RF -a BRS -s 9999 -e 0.2 -n 1 -t Negative
-python experiments/step5_attack_target.py -d Electricity -m RF -a FULLVITA -s 9999 -e 0.2 -n 1 -t Negative
+python experiments/step4_attack_non_target.py -d Oil -m CNN -a BRS -s 1111111 -e 0.2 -n 1
+python experiments/step4_attack_non_target.py -d Oil -m CNN -a FGSM -s 1111111 -e 0.2 -n 1
+python experiments/step4_attack_non_target.py -d Oil -m CNN -a FULLVITA -s 1111111 -e 0.2 -n 1
+python experiments/step4_attack_non_target.py -d Oil -m CNN -a NOATTACK -s 1111111 -e 0.2 -n 1
+python experiments/step4_attack_non_target.py -d Oil -m CNN -a NVITA -s 1111111 -e 0.2 -n 1
 
