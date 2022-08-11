@@ -73,15 +73,15 @@ def save_script(line, output, idx):
         file.writelines(my_script)
 
 
-def get_content(n):
+def get_content(n, dir):
     content = '''#!/bin/bash
 
 for I in {{1..{}}}; do
-    sbatch ./slurm/missing/part_$I.sh
+    sbatch ./{}/part_$I.sh
 done
         
 squeue --me
-'''.format(n)
+'''.format(n, dir)
     return content
 
 
@@ -104,5 +104,5 @@ if __name__ == '__main__':
     # Create the script to submit all files
     file_count = file_count - 1
     with open(os.path.join(PATH_OUTPUT, 'run_missing.sh'), 'w') as file:
-        file.writelines(get_content(file_count))
+        file.writelines(get_content(file_count, 'new_slurm'))
     print(f'Created {file_count} slurm scripts in total')
