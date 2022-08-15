@@ -4,7 +4,7 @@ This repository is for the *nVITA* algorithm.
 
 It also contains *FGSM* and *BIM* and two baseline attacks *BRS* and *BRNV* for TSF.
 
-In addition Targeted FGSM (*FGSMt*) and Targeted BIM (*BIMt*) are also included.
+In addition, Targeted FGSM (*FGSMt*) and Targeted BIM (*BIMt*) are also included.
 
 *BRS* randomly selects the *sign* of the perturbation. It is the **baseline** attack method for *FGSM*, *BIM* and *FullVITA*
 
@@ -14,12 +14,12 @@ In addition Targeted FGSM (*FGSMt*) and Targeted BIM (*BIMt*) are also included.
 
 ## Saved Dataset, Models
 
-step1 to step3 have already been run, and result files (splitted data, trained model) are saved in the result directory.
+step1 to step3 have already been run, and result files (split data, trained model) are saved in the result directory.
 Notice the experiments cannot be carried out without those result files.
 
 ### Step 1 data preprocessing, hyperparameter tuning, and model training
 
-*step1_preprocessing.ipynb* **CANNOT** be run without /raw_data placed in the /data directory. It preprocess the data and draws the Autocorrelation Function (ACF) plot.
+*step1_preprocessing.ipynb* **CANNOT** be run without /raw_data placed in the /data directory. It preprocesses the data and draws the Autocorrelation Function (ACF) plot.
 
 ### Step 2 hyperparameter tuning
 
@@ -33,9 +33,15 @@ Notice the experiments cannot be carried out without those result files.
 
 Use "pip install ." under the nvita directory to install nvita.
 
+The experiment code is mainly based on the following libaries: **Pytorch**, **BLiTZ**, **Sklearn**, **SciPy**, **Numpy**
+
+The visulization code is mainly based on the following libaries: **Pandas**, **Matplotlib**, **Seaborn**, **Autorank**
+
+requirements.txt is the requirments for Windows
+
 requirements_recovered.txt is the requirements for Linux
 
-As mentioned above step1 to step3 has already been run and the splitted data and trained models are saved. So running Step 4 and Step 5 would be enough for reproduce the experiments.
+As mentioned above step1 to step3 have already been run, and the split data and trained models are saved. So running Step 4 and Step 5 would be enough for reproducing the experiments.
 
 **NOTE** that *FGSM* and *BIM* **CANNOT** attack *RF(random forest)* while *nVITA* and *fullVITA* can.
 
@@ -63,7 +69,7 @@ All files in /results/splitted_data and /results/saved_model are reuqired to run
 
 **"-e", "--epsilon"**, type=float, the epsilon for the attack, must be one from **["0.05", "0.1", "0.15", "0.20"]**
 
-**"-n", "--n"**, type=int, the *n* value for BRNV and NVITA, this will be ignored if the attack name is other than "BRNV" and "NVITA". The n value must be one of the **["1", "3", "5"]**
+**"-n", "--n"**, type=int, the *n* value for BRNV and NVITA. This will be ignored if the attack name is other than "BRNV" and "NVITA". The n value must be one of the **["1", "3", "5"]**
 
 Optional **"--demo"**, the demo size integer, must range from 1 to 100. If we don't pass this parameter, we will run the complete experiments. If we pass an integer as demo size, the result output directory will be /examples
 
