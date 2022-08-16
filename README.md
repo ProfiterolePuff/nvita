@@ -4,7 +4,7 @@ This repository is for the *nVITA* algorithm.
 
 It also contains *FGSM* and *BIM* and two baseline attacks *BRS* and *BRNV* for TSF.
 
-In addition, Targeted FGSM (*FGSMt*) and Targeted BIM (*BIMt*) are also included.
+In addition, Targeted FGSM (FGSMt) and Targeted BIM (BIMt) are also included.
 
 *BRS* randomly selects the *sign* of the perturbation. It is the **baseline** attack method for *FGSM*, *BIM* and *FullVITA*
 
@@ -31,6 +31,8 @@ Notice the experiments cannot be carried out without those result files.
 
 ## Running of the code
 
+### Requirements
+
 Use "pip install ." under the nvita directory to install nvita.
 
 The experiment code is mainly based on the following libaries: **Pytorch**, **BLiTZ**, **Sklearn**, **SciPy**, **Numpy**
@@ -40,6 +42,8 @@ The visulization code is mainly based on the following libaries: **Pandas**, **M
 requirements.txt is the requirments for Windows
 
 requirements_recovered.txt is the requirements for Linux
+
+### Note before running
 
 As mentioned above step1 to step3 have already been run, and the split data and trained models are saved. So running Step 4 and Step 5 would be enough for reproducing the experiments.
 
@@ -55,7 +59,7 @@ For *NVITA*, *n* = ["1", "3", "5"]*, but for *BRNV*, *n* = 5 alone would be enou
 
 All files in /results/splitted_data and /results/saved_model are reuqired to run for step4 and step5
 
-### Step 4 non-targeted experiments
+#### Step 4 non-targeted experiments
 
 *step4_attack_non_target.py* takes the following arguments:
 
@@ -73,7 +77,7 @@ All files in /results/splitted_data and /results/saved_model are reuqired to run
 
 Optional **"--demo"**, the demo size integer, must range from 1 to 100. If we don't pass this parameter, we will run the complete experiments. If we pass an integer as demo size, the result output directory will be /examples
 
-### Step 5 non-targeted experiments
+#### Step 5 non-targeted experiments
 
 Apart from **ALL** of the arguments *step4_attack_non_target.py* requires,
 
@@ -86,3 +90,15 @@ Apart from **ALL** of the arguments *step4_attack_non_target.py* requires,
 For non-targeted attacks, the **absolute error (AE)** is measured between the model prediction and ground truth y. Thus, a larger AE indicates better attack performance.
 
 For targeted attacks, the **absolute error (AE)** is measured between the model prediction and attack goal target value. Thus, a smaller AE indicates better attack performance as we make the model prediction closer to our target after the attack.
+
+### Visulization 
+
+After experiments (step 4 and step 5) are completed.
+
+Jupyter notebook "result_visulization_main.ipynb" and "result_visulization_supp.ipynb" can produce the plots for the paper and the supplementary material, respectively.
+
+Notice that those two notebooks would not run appropriately without the result file recorded by step 4 and step 5.
+
+/visualization/main_plots directory stores all the plots in the paper
+
+/visualization/supp_plots directory stores all the plots in the paper
