@@ -33,15 +33,15 @@ Notice the experiments cannot be carried out without those result files.
 
 ### Requirements
 
-Use "pip install ." under the nvita directory to install nvita.
+Use "pip install ." under the nvita directory to install nvita package.
 
-The experiment code is mainly based on the following libaries: **Pytorch**, **BLiTZ**, **Sklearn**, **SciPy**, **Numpy**
+The experiment code is mainly based on the following libaries: **Pytorch**, **BLiTZ**, **Sklearn**, **SciPy**, **Numpy**, **yfinance**
 
 The visulization code is mainly based on the following libaries: **Pandas**, **Matplotlib**, **Seaborn**, **Autorank**
 
-requirements.txt is the requirments for Windows
+*requirements.txt* is the package requirments for Windows
 
-requirements_recovered.txt is the requirements for Linux
+*requirements_recovered.txt* is the package requirements for Linux
 
 ### Note before running
 
@@ -49,7 +49,7 @@ As mentioned above step1 to step3 have already been run, and the split data and 
 
 **NOTE** that *FGSM* and *BIM* **CANNOT** attack *RF(random forest)* while *nVITA* and *fullVITA* can.
 
-For *NVITA*, *n* = ["1", "3", "5"]*, but for *BRNV*, *n* = 5 alone would be enough.
+For *NVITA*, *n* = ["1", "3", "5"], but for *BRNV*, *n* = 5 alone would be enough.
 
 *n* = 10 is not included in metadata.json, so it cannot be run currently. We will run it if we have spare time.
 
@@ -77,13 +77,29 @@ All files in /results/splitted_data and /results/saved_model are reuqired to run
 
 Optional **"--demo"**, the demo size integer, must range from 1 to 100. If we don't pass this parameter, we will run the complete experiments. If we pass an integer as demo size, the result output directory will be /examples
 
-#### Step 5 non-targeted experiments
+Example command for demo run: python experiments\step4_attack_non_target.py -d Electricity -s 2210 -m CNN -a NVITA -e 0.2 -n 1 --demo 10
+
+Will run the first 10 test window for experiment (dataset Electricity, seed 2210, model CNN, attack NVITA, epsilon=0.2, n=1)
+
+Example command for complete run: python experiments\step4_attack_non_target.py -d Electricity -s 2210 -m CNN -a NVITA -e 0.2 -n 1
+
+Will run the all 100 test windows for experiment (dataset Electricity, seed 2210, model CNN, attack NVITA, epsilon=0.2, n=1)
+
+#### Step 5 targeted experiments
 
 Apart from **ALL** of the arguments *step4_attack_non_target.py* requires,
 
 *step5_attack_target.py* takes another argument:
 
 **"-t", "--target"**, type=str, the target direction, it must be either **"Positive"**, or **"Negative"**
+
+Example command for demo run: python experiments\step5_attack_target.py -d Electricity -s 2210 -m CNN -a NVITA -e 0.2 -n 1 -t Positive --demo 10
+
+Will run the first 10 test window for (dataset Electricity, seed 2210, model CNN, attack NVITA, epsilon=0.2, n=1, Positive target)
+
+Example command for complete run: python experiments\step5_attack_target.py -d Electricity -s 2210 -m CNN -a NVITA -e 0.2 -n 1 -t Positive
+
+Will run the all 100 test window for experiment (dataset Electricity, seed 2210, model CNN, attack NVITA, epsilon=0.2, n=1, Positive target)
 
 ## Result Interpretation
 
@@ -95,10 +111,10 @@ For targeted attacks, the **absolute error (AE)** is measured between the model 
 
 After experiments (step 4 and step 5) are completed.
 
-Jupyter notebook "result_visulization_main.ipynb" and "result_visulization_supp.ipynb" can produce the plots for the paper and the supplementary material, respectively.
+Jupyter notebook *result_visulization_main.ipynb* and *result_visulization_supp.ipynb* can produce the plots for the paper and the supplementary material, respectively.
 
 Notice that those two notebooks would not run appropriately without the result file recorded by step 4 and step 5.
 
-/visualization/main_plots directory stores all the plots in the paper
+*/visualization/main_plots* directory stores all the plots in the paper
 
-/visualization/supp_plots directory stores all the plots in the paper
+*/visualization/supp_plots* directory stores all the plots in the paper
