@@ -6,6 +6,11 @@ It also contains *FGSM* and *BIM* and two baseline attacks *BRS* and *BRNV* for 
 
 In addition, Targeted FGSM (FGSMt) and Targeted BIM (BIMt) are also included.
 
+<img src="./visualization/main_plots/frontpage.png"
+     alt="All three attacks in this package"
+     width="462.5"
+     height="308" />
+
 *BRS* randomly selects the *sign* of the perturbation. It is the **baseline** attack method for *FGSM*, *BIM* and *FullVITA*
 
 *BRNV* randomly selects *n* values to attack. It is the **baseline** attack method for *nVITA*
@@ -107,7 +112,7 @@ For non-targeted attacks, the **absolute error (AE)** is measured between the mo
 
 For targeted attacks, the **absolute error (AE)** is measured between the model prediction and attack goal target value. Thus, a smaller AE indicates better attack performance as we make the model prediction closer to our target after the attack.
 
-### Visulization 
+### Visulization
 
 After experiments (step 4 and step 5) are completed.
 
