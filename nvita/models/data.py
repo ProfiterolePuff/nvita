@@ -42,8 +42,6 @@ class SplittedTSData:
         else:
             scaler = MinMaxScaler(feature_range = feature_range)
 
-        scaler = MinMaxScaler(feature_range = (0,1))
-
         for col_ind in range(self.X_train.shape[2]):
     
             self.X_train[:, :, col_ind] = scaler.fit_transform(self.X_train[:, :, col_ind].reshape(-1, 1)).reshape(self.X_train[:, :, col_ind].shape)
